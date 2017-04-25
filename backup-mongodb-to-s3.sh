@@ -27,7 +27,7 @@ TAR=$DEST/../$TIME.tar
 
 
 # Log
-echo "Backing up $MONGO_HOST/MONGO_DBNAME to s3://$BUCKET/ on $TIME";
+echo "Backing up $MONGO_HOST/$MONGO_DBNAME to s3://$AWS_TARGET_BUCKET/ on $TIME";
 
 # Dump from mongodb host into backup directory
 /usr/bin/mongodump -h $MONGO_HOST -d $MONGO_DBNAME -o $DEST
@@ -36,13 +36,13 @@ echo "Backing up $MONGO_HOST/MONGO_DBNAME to s3://$BUCKET/ on $TIME";
 /bin/tar cvf $TAR -C $DEST .
 
 # Upload tar to s3
-/usr/bin/aws s3 cp $TAR s3://$AWS_BUCKET/
+/usr/bin/aws s3 cp $TAR s3://$AWS_TARGET_BUCKET/
 
 # Remove tar file locally
 /bin/rm -f $TAR
 
 ## Remove backup directory
-#/bin/rm -rf $DEST
+/bin/rm -rf $DEST
 
 # All done
-echo "Backup available at https://s3.amazonaws.com/$AWS_BUCKET/$TIME.tar"
+echo "Backup available at https://s3.amazonaws.com/$AWS_TARGET_BUCKET/$TIME.tar"

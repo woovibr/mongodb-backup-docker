@@ -6,7 +6,7 @@ ENV MONGO_VERSION 3.4.4
 # MongoDB Enviroment
 # MongoDB Source Database
 ENV MONGO_DBNAME=my-db
-ENV MONGO_HOST=mongo
+ENV MONGO_HOST=localhost
 
 # S3 bucket that the backup will be stored
 ENV AWS_TARGET_BUCKET=s3-bucket-name

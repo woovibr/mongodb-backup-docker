@@ -1,8 +1,10 @@
 #From https://gist.github.com/eladnava/96bd9771cd2e01fb4427230563991c8d
 #!/bin/sh
 
-# Current time
-TIME=`/bin/date +%Y-%m-%d-%Hh%Ms%S`
+# Current time, this will be the file name
+FILENAME=`/bin/date +%Y-%m-%d-%Hh%Ms%S`
+# Separate Uploads using date as folders
+TIMEPATH=`/bin/date +"%Y/%m/%d"` 
 
 # Backup directory
 DEST=/volume/tmp
@@ -11,10 +13,10 @@ DEST=/volume/tmp
 /bin/mkdir -p $DEST
 
 # Tar file of backup directory
-TAR=$DEST/../$TIME.tar
+TAR=$DEST/../$FILENAME.tar
 
 # Log
-echo "Backing up $MONGO_URI to $AWS_TARGET_BUCKET on $TIME";
+echo "Backing up $MONGO_URI to $AWS_TARGET_BUCKET/$TIMEPATH on $FILENAME";
 
 # Dump from mongodb host into backup directory
 /usr/bin/mongodump --uri $MONGO_URI -o $DEST
@@ -23,7 +25,7 @@ echo "Backing up $MONGO_URI to $AWS_TARGET_BUCKET on $TIME";
 /bin/tar cvf $TAR -C $DEST .
 
 # Upload tar to s3
-/usr/bin/aws s3 cp $TAR $AWS_TARGET_BUCKET
+/usr/bin/aws s3 cp $TAR $AWS_TARGET_BUCKET/$TIMEPATH/$FILENAME.tar
 
 # Remove tar file locally
 /bin/rm -f $TAR
@@ -32,4 +34,4 @@ echo "Backing up $MONGO_URI to $AWS_TARGET_BUCKET on $TIME";
 /bin/rm -rf $DEST
 
 # All done
-echo "Backup available at $AWS_TARGET_BUCKET/$TIME.tar"
+echo "Backup available at $AWS_TARGET_BUCKET/$TIMEPATH/$FILENAME.tar"

@@ -1,4 +1,4 @@
-FROM mongo:4.0.12-xenial
+FROM mongo:4.2.1
 
 # Preparate update
 RUN apt-get update

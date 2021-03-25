@@ -1,4 +1,4 @@
-FROM mongo:4.4.1
+FROM mongo:4.4.4
 
 # Preparate update
 RUN apt-get update

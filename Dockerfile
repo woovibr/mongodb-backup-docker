@@ -1,4 +1,4 @@
-FROM mongo:4.4.4
+FROM mongo:6.0.1
 
 # Preparate update
 RUN apt-get update
@@ -11,8 +11,8 @@ ENV MONGO_URI="mongodb://localhost/test"
 
 # S3 bucket that the backup will be stored
 ENV AWS_TARGET_BUCKET="s3://mybucket/folder/"
-ENV AWS_ACCESS_KEY_ID=AAAAAAA
-ENV AWS_SECRET_ACCESS_KEY=BBBBBB
+ENV AWS_ACCESS_KEY_ID="AAAAAAA"
+ENV AWS_SECRET_ACCESS_KEY="BBBBBB"
 
 #Execute Backup
 CMD ["/bin/sh", "/scripts/backup-mongodb-to-s3.sh"]

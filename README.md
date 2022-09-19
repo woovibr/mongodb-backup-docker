@@ -9,8 +9,9 @@ docker login
 docker build . -t entria/mongodb-backup-docker
 
 # Powered by
+[Woovi](https://woovi.com)
+[OpenPix](https://openpix.om)
 [Entria](https://entria.com.br)
-[Feedback](https://feedback.house)
 
 # Inspired by
 https://gist.github.com/eladnava/96bd9771cd2e01fb4427230563991c8d

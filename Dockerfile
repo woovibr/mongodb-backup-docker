@@ -1,4 +1,4 @@
-FROM mongo:6.0.8
+FROM mongo:7.0.5
 
 # Preparate update
 RUN apt-get update

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Current time, this will be the file name
-FILENAME=`/bin/date +%Y-%m-%d-%Hh%Ms%S`.gz
+FILENAME=`/bin/date +%Y-%m-%d-%Hh%Ms%S`.tar.gz
 # Separate Uploads using date as folders
 TIMEPATH=`/bin/date +"%Y/%m/%d"` 
 

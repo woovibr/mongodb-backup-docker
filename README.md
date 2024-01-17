@@ -3,9 +3,13 @@ MongoDB Backup Docker
 
 This Image is intended to be used in a Kubernetes environment to automatically backup MonoDB to a S3 bucket.
 
+# Available at
+https://hub.docker.com/r/entria/mongodb-backup-docker
+
 # upload
 
 docker login
+
 docker build . -t entria/mongodb-backup-docker
 
 # Powered by

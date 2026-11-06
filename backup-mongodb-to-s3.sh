@@ -39,7 +39,11 @@ MARKER="${DEST}.ok"
 # usually shipped to a log store (Loki, CloudWatch, ...) where it persists far longer
 # and is readable by far more people than the secret itself. The previous version of
 # this script echoed the raw URI on every run.
-MONGO_URI_SAFE="$(printf '%s' "${MONGO_URI}" | sed -E 's#://[^/@]+@#://***:***@#')"
+redact_uri() {
+  sed -u -E 's#(mongodb(\+srv)?://)[^/?[:space:]]*@#\1***:***@#g'
+}
+
+MONGO_URI_SAFE="$(printf '%s' "${MONGO_URI}" | redact_uri)"
 
 # A mongodump that dies mid-dump closes the pipe cleanly, so awscli sees EOF and
 # finalizes a *truncated* archive as a successful multipart upload. There is no way
@@ -74,6 +78,7 @@ run_backup() {
     --archive \
     --gzip \
     --numParallelCollections="${PARALLEL_COLLECTIONS}" \
+    2> >(redact_uri >&2) \
     | aws s3 cp - "${DEST}" --expected-size "${EXPECTED_SIZE}"
 
   local status=("${PIPESTATUS[@]}")
